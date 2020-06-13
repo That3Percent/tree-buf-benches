@@ -1,0 +1,13 @@
+[workspace]
+
+members = [
+    "geojson",
+    "common",
+    "graphql",
+    "finance"
+]
+
+[profile.release]
+lto = "fat"
+panic = "abort"
+codegen-units = 1

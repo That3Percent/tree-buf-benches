@@ -1,0 +1,15 @@
+[package]
+name = "tree-buf-benches"
+version = "0.1.0"
+authors = ["Zac Burns <That3Percent@gmail.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+#tree-buf = { path="../../tree-buf/tree-buf", features=["profile"] }
+tree-buf = { path="../../tree-buf/tree-buf" }
+common = { path="../common" }
+geojson = "0.17.0"
+serde_json = "1.0.48"
+flame = "0.2.2"

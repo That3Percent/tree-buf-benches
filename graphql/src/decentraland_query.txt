@@ -1,0 +1,35 @@
+https://thegraph.com/explorer/subgraph/decentraland/marketplace
+{
+  count(id: "all") {
+    id
+    orderTotal
+    wearableTotal
+  }
+  orders(where: { category: wearable }, first:1000) {
+    price
+    status
+    createdAt
+    nft {
+      searchIsLand
+      searchText
+      searchIsWearableAccessory
+      bids {
+        bidder
+        status
+        blockNumber
+      }
+      wearable {
+        name
+        owner {
+      		mana
+    		}
+        
+    		representationId
+    		collection
+    		category
+    		rarity,
+    		bodyShapes
+      }
+    }
+  }
+}
