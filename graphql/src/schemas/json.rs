@@ -27,7 +27,6 @@ pub struct Count {
 pub struct Order {
     pub created_at: String,
     pub nft: NFT,
-    pub price: String,
     pub status: String,
 }
 
@@ -57,7 +56,6 @@ pub struct Wearable {
     pub name: String,
     pub owner: Owner,
     pub rarity: String,
-    pub representation_id: String,
 }
 
 #[derive(Serialize, Deserialize, Debug, PartialEq, Eq)]
@@ -98,7 +96,6 @@ impl From<Order> for treebuf::Order {
         Self {
             created_at: order.created_at.parse().unwrap(),
             nft: order.nft.into(),
-            price: order.created_at.parse().unwrap(),
             status: order.status.parse().unwrap(),
         }
     }
@@ -138,7 +135,6 @@ impl From<Wearable> for treebuf::Wearable {
             name: wearable.name,
             owner: wearable.owner.into(),
             rarity: wearable.rarity.parse().unwrap(),
-            representation_id: wearable.representation_id,
         }
     }
 }

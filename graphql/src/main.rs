@@ -1,50 +1,60 @@
 mod schemas;
 
 use common::*;
-use rmp_serde::{from_read_ref, to_vec as to_vec_message_pack};
+use rmp_serde::{from_read_ref, to_vec as to_vec_unnamed, to_vec_named};
 use serde_json::{from_slice, from_str, to_vec as to_vec_json};
-use std::fs::File;
 
 fn main() {
-    let mut stats = Stats::new(15000);
+    let mut stats = Stats::new(12500);
 
     let data = include_str!("./decentraland_response.json");
     let json_response: schemas::json::Response = from_str(&data).unwrap();
-    /*
     stats.profile(
         "Json",
-        366546,
+        307529,
         &json_response,
         |d| to_vec_json(d).unwrap(),
         |b| from_slice(b).unwrap(),
     );
-
     stats.profile(
-        "Message Pack",
-        200728,
+        "Message Pack (No Key Named)",
+        106868,
         &json_response,
-        |d| to_vec_message_pack(d).unwrap(),
+        |d| to_vec_unnamed(d).unwrap(),
         |b| from_read_ref(b).unwrap(),
     );
-    */
+    stats.profile(
+        "Message Pack",
+        242558,
+        &json_response,
+        |d| to_vec_named(d).unwrap(),
+        |b| from_read_ref(b).unwrap(),
+    );
+
     let tb: schemas::treebuf::Response = json_response.into();
 
     /*
-    for _ in 0..10 {
+    let start = std::time::Instant::now();
+    for _ in 0..1000 {
         encode(&tb);
+        firestorm::clear();
     }
-    flame::clear();
-    let _g = flame::start_guard("GraphQL");
+    let end = std::time::Instant::now();
+    dbg!(end - start);
+    let _g = firestorm::start_guard("GraphQL");
     let x = encode(&tb);
     drop(_g);
     drop(x);
-    flame::dump_html(&mut File::create("flame-graph.html").unwrap()).unwrap();
+    let mut options = Default::default();
+    firestorm::to_svg(|| File::create("flame-graph.svg").unwrap(), &options).unwrap();
+    options.merge = true;
+    firestorm::to_svg(|| File::create("flame-graph-merged.svg").unwrap(), &options).unwrap();
     return;
     */
 
     let tb_bytes = stats.profile(
         "Tree Buf",
-        51471,
+        13545,
         &tb,
         |d| encode(d),
         |b| decode(b).unwrap(),
@@ -57,7 +67,4 @@ fn main() {
 
     let sizes = tree_buf::experimental::stats::size_breakdown(&tb_bytes);
     println!("{}", sizes.unwrap());
-
-    //drop(_g);
-    //flame::dump_html(&mut File::create("flame-graph.html").unwrap()).unwrap();
 }

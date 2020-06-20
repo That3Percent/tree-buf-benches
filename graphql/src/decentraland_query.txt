@@ -5,13 +5,11 @@ https://thegraph.com/explorer/subgraph/decentraland/marketplace
     orderTotal
     wearableTotal
   }
-  orders(where: { category: wearable }, first:1000) {
-    price
+  orders(where: { category: wearable }, first:1000, orderBy: createdAt) {
     status
     createdAt
     nft {
       searchIsLand
-      searchText
       searchIsWearableAccessory
       bids {
         bidder
@@ -24,7 +22,6 @@ https://thegraph.com/explorer/subgraph/decentraland/marketplace
       		mana
     		}
         
-    		representationId
     		collection
     		category
     		rarity,

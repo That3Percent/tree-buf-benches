@@ -1,12 +1,11 @@
 use common::*;
 mod geojson;
-use flame;
+use firestorm;
 use std::fs::File;
 
 use tree_buf::decode_options;
 
 fn main() {
-    //let _g = flame::start_guard("GeoJson");
     let mut stats = Stats::new(150);
 
     let data = geojson::load_data(&mut stats);
@@ -20,13 +19,19 @@ fn main() {
         tree_buf::read_with_options(&bytes, &options).unwrap()
     });
     */
-    //drop(_g);
-    //flame::dump_html(&mut File::create("flame-graph.html").unwrap()).unwrap();
-    //return;
-    let _attributes: geojson::model::GeoJsonAttributes =
-        time_it("Tree-Buf Attr", &mut stats.decode, || {
-            decode(&bytes).unwrap()
-        }, stats.count);
+    /*
+    let _g = firestorm::start_guard("GeoJson");
+    encode(&data);
+    drop(_g);
+    firestorm::to_svg(|| File::create("flame-graph.svg").unwrap()).unwrap();
+    */
+
+    let _attributes: geojson::model::GeoJsonAttributes = time_it(
+        "Tree-Buf Attr",
+        &mut stats.decode,
+        || decode(&bytes).unwrap(),
+        stats.count,
+    );
 
     stats.profile(
         "Tree-Buf L09",
@@ -53,7 +58,4 @@ fn main() {
 
     let sizes = tree_buf::experimental::stats::size_breakdown(&bytes);
     println!("{}", sizes.unwrap());
-
-    //drop(_g);
-    //flame::dump_html(&mut File::create("flame-graph.html").unwrap()).unwrap();
 }

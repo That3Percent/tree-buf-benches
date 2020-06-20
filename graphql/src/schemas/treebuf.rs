@@ -25,7 +25,6 @@ pub struct Count {
 pub struct Order {
     pub created_at: u64,
     pub nft: NFT,
-    pub price: u64,
     pub status: Status,
 }
 
@@ -94,7 +93,6 @@ pub struct Wearable {
     pub name: String,
     pub owner: Owner,
     pub rarity: Rarity,
-    pub representation_id: String,
 }
 
 #[derive(Decode, Encode, Debug, PartialEq, Eq)]
@@ -127,23 +125,26 @@ pub enum Category {
     EyeWear,
     Hair,
     Tiara,
+    FacialHair,
 }
 
 impl FromStr for Category {
     type Err = String;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
+        use Category::*;
         match s {
-            "mask" => Ok(Self::Mask),
-            "upper_body" => Ok(Self::UpperBody),
-            "lower_body" => Ok(Self::LowerBody),
-            "hat" => Ok(Self::UpperBody),
-            "earring" => Ok(Self::Earring),
-            "feet" => Ok(Self::Feet),
-            "top_head" => Ok(Self::TopHead),
-            "helmet" => Ok(Self::Helmet),
-            "eyewear" => Ok(Self::EyeWear),
-            "hair" => Ok(Self::Hair),
-            "tiara" => Ok(Self::Tiara),
+            "mask" => Ok(Mask),
+            "upper_body" => Ok(UpperBody),
+            "lower_body" => Ok(LowerBody),
+            "hat" => Ok(UpperBody),
+            "earring" => Ok(Earring),
+            "feet" => Ok(Feet),
+            "top_head" => Ok(TopHead),
+            "helmet" => Ok(Helmet),
+            "eyewear" => Ok(EyeWear),
+            "hair" => Ok(Hair),
+            "tiara" => Ok(Tiara),
+            "facial_hair" => Ok(FacialHair),
             _ => Err(s.to_owned()),
         }
     }

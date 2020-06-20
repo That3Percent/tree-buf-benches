@@ -10,7 +10,7 @@ edition = "2018"
 deflate = "0.8.3"
 inflate = "0.4.5"
 common = { path = "../common" }
-tree-buf = { path="../../tree-buf/tree-buf" }
+tree-buf = "0.9.0"
 csv = "1.1"
 serde = { version="1.0.105", features = ["derive"] }
-flame = "0.2.2"
+firestorm = "0.2.0"

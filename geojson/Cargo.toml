@@ -7,9 +7,9 @@ edition = "2018"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-#tree-buf = { path="../../tree-buf/tree-buf", features=["profile"] }
-tree-buf = { path="../../tree-buf/tree-buf" }
+tree-buf = "0.9.0"
 common = { path="../common" }
 geojson = "0.17.0"
 serde_json = "1.0.48"
-flame = "0.2.2"
+firestorm = "0.2.0"
+#firestorm = {version = "0.2.0", features = ["enabled"] }

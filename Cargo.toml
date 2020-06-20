@@ -11,3 +11,9 @@ members = [
 lto = "fat"
 panic = "abort"
 codegen-units = 1
+
+[patch.crates-io]
+#firestorm = { path="../firestorm", features=["enabled"] }
+#firestorm = { path="../firestorm" }
+#inferno = { git = "https://github.com/AnderEnder/inferno", branch="feature/flame-chart-mode" }
+#tree-buf = { path = "../tree-buf/tree-buf" }

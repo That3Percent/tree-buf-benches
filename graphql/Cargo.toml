@@ -11,7 +11,8 @@ serde = { version="1.0.105", features = ["derive"] }
 serde_json = "1.0.48"
 rmp-serde = "0.14.3"
 common = { path = "../common" }
-tree-buf = { path="../../tree-buf/tree-buf" }
-#tree-buf = { path="../../tree-buf/tree-buf", features=["profile"] }
+#tree-buf = { path="../../tree-buf/tree-buf" }
+tree-buf = "0.9.0"
 hex = "0.4.2"
-flame = "0.2.2"
+#firestorm = { version="0.2.0", features=["enabled"] }
+firestorm = { version="0.2.0" }
